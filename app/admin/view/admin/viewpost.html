@@ -104,8 +104,12 @@
                 {volist name="list" id="vo"}
                 <div class="col-md-12" id="comments">
                     <div class="row">
-                        <div class="col-md-1 hidden-xs text-center">
+                         <div class="col-md-1 hidden-xs text-center">
+                            {if condition="($vo.fromid==0)"}
+                            <img src="/upload/touxiang.jpg" class="img-circle" width="50" height="50"/>
+                            {else /}
                             <img src="{$vo.user.pic}" class="img-circle" width="50" height="50"/>
+                            {/if}
                         </div>
                         <div class="col-md-11  small">
                             <div class="text-left">
