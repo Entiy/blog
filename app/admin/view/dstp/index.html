@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            {block name="title"}
+            {/block}
+        </title>
+        <!-- Mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Force IE9 to render in normal mode -->
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="author" content="SuggeElson" />
+        <meta name="description" content=""/>
+        <meta name="keywords" content=""/>
+        <meta name="application-name" content="sprFlat admin template" />
+        <!-- Import google fonts - Heading first/ text second -->
+        <link rel='stylesheet' type='text/css' />
+        <!--[if lt IE 9]>
+
+        <![endif]-->
+        <!-- Css files -->
+        <!-- Icons -->
+        <link href="/dstp/assets/css/icons.css" rel="stylesheet" />
+        <!-- jQueryUI -->
+        <link href="/dstp/assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <link href="/dstp/assets/css/bootstrap.css" rel="stylesheet" />
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="/dstp/assets/css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="/dstp/assets/css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="/dstp/assets/css/custom.css" rel="stylesheet" />
+        <!-- Fav and touch icons -->
+        {block name="outlinks"}
+        {/block}
+    </head>
+    <body>
+        <!-- Start #header -->
+        <div id="header">
+            <div class="container-fluid">
+                <div class="navbar">
+                   <div class="navbar-header">
+                        <a class="navbar-brand" href="dstp">
+                            <i class="im-code text-logo-element animated bounceIn"></i></span><span class="text-slogan">    永远相信美好的事情即将发生</span> 
+                        </a>
+                    </div>
+                    <nav class="top-nav" role="navigation">
+                      
+                        <ul class="nav navbar-nav pull-right">
+                            <li>
+                                <a href="#" id="toggle-header-area"><i class="ec-screen" style="font-size: 18px"></i> Disk space : 78% Cpu : 56% Memory : 14%
+
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- Start .header-inner -->
+        </div>
+        <!-- End #header -->
+
+        <!-- Start #sidebar -->
+        <div id="sidebar">
+            <!-- Start .sidebar-inner -->
+            <div class="sidebar-inner">
+                <!-- Start #sideNav -->
+                <ul id="sideNav" class="nav nav-pills nav-stacked">
+                    <li class="top-search">
+                        <form>
+                            <input type="text" name="search" placeholder="Search...">
+                            <button type="submit"><i class="ec-search s20"></i>
+                            </button>
+                        </form>
+                    </li>
+                    <li><a href="total">统计 <i class="br-stats"></i></a>
+                    </li>
+                    <li><a href="write">写文章 <i class="br-pencil"></i></a>
+                    </li>
+                    <li><a href="postmanager"> 文章管理 <i class="fa-file-text"></i></a>
+                    </li>
+                    <li><a href="commentmanager"> 评论管理 <i class="fa-comments"></i></a>
+                    </li>
+                    <li><a href="commentonoroff"> 开/关评论 <i class="br-switch"></i></a>
+                    </li>
+                    <li><a href="shareonoroff"><i class="ec-share"></i>开/关分享</a>
+                    </li>
+                    <li><a href="moneyonoroff"><i class="im-thumbs-up"></i>开/关赞赏</a>
+                    </li>
+                    <li><a href="navmanager"><i class="br-location2"></i>导航管理</a>
+                    </li>
+                    <li><a href="admininfo"><i class="fa-user"></i> 个人信息 </a>
+                    </li>
+                    <li><a href="tagmanager"><i class="fa-tags"></i> 标签管理</a>
+                    </li>
+                    <li><a href="bbsmanager">留言管理 <i class="st-files"></i></a>
+                    </li>
+                    <li><a href="#">服务器信息 <i class="br-monitor"></i></a>
+                    </li>
+                </ul>
+                <!-- End #sideNav -->
+             
+            </div>
+            <!-- End .sidebar-inner -->
+        </div>
+        <!-- End #sidebar -->
+
+        <!-- Start #content -->
+        <div id="content">
+            <!-- Start .content-wrapper -->
+            <div class="content-wrapper">
+                {block name="outlet"}
+                {/block}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- End #content -->
+
+    </body>
+</html>

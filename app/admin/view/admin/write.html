@@ -1,0 +1,157 @@
+{extend name="dstp/index" /}
+{block name="title"}
+写文章
+{/block}
+{block name="outlinks"}
+<link rel="stylesheet" href="/simplemde/dist/simplemde.min.css">
+<script src="/simplemde/dist/simplemde.min.js"></script>
+<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="__JS__/justTools.js"></script>
+<script src="__JS__/plug-in.js"></script>
+<link rel="stylesheet" href="__CSS__/just-tip.css">
+{/block}
+
+{block name="outlet"}
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input id="title" type="text" class="form-control" placeholder="标题">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<hr>-->
+<div  class="form-inline ">
+<div class="outlet">
+    <div class="markdown-editor">
+            <textarea name="content" id="markdownid" style="display: none"></textarea>
+    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <select id="pselect" class="form-control left-icon">
+                        {volist name="tags" id="vo" }
+                        <option>{$vo.tagname}</option>
+                        {/volist}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input id="author" type="text" class="form-control left-icon" placeholder="作者">
+                            <i class="fa-user left-input-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control left-icon" id="fd" placeholder="日期">
+                            <i class="fa-calendar left-input-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="inputpost()" class="btn btn-default">写入</button>
+            </div>
+    </div>
+    <br>
+</div>
+</div>
+
+
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript">
+    $(function () {
+        $("#fd").datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',
+            locale: moment.locale('zh-cn')
+        });
+        // simplemde.value("");
+    });
+</script>
+<script>
+    var simplemde = new SimpleMDE({
+        tabSize: 1,
+        status: false,
+        status: ["autosave", "lines", "words", "cursor"], // Optional usage
+        status: ["autosave", "lines", "words", "cursor", {
+            className: "keystrokes",
+            defaultValue: function(el) {
+                this.keystrokes = 0;
+                el.innerHTML = "0 Keystrokes";
+            },
+            onUpdate: function(el) {
+                el.innerHTML = ++this.keystrokes + " Keystrokes";
+            }
+        }],
+        showIcons: ["code", "table","horizontal-rule","quote","strikethrough","clean-block","side-by-side"],
+        renderingConfig: {
+            singleLineBreaks: false,
+            codeSyntaxHighlighting: true,
+        },
+        autofocus: true,
+        autosave: {
+            enabled: true,
+            uniqueId: "MyUniqueID",
+            delay: 1000,
+        },
+        element: document.getElementById("markdownid"),
+        forceSync: true
+        //hideIcons: ["guide", "heading"],
+
+    });
+    function inputpost() {
+        var author=$("#author").val();
+        var title=$("#title").val();
+        var rawcontent=simplemde.value();
+        var content=simplemde.markdown(rawcontent);
+        var datetime=$("#fd").val();
+        var tag=$("#pselect option:selected").text();
+        if (title!=""&&content!=""&&author!=""&&datetime!=""&&tag!=""){
+            $.ajax({
+                url: "writepost",
+                data: {
+                    author:author,
+                    title:title,
+                    content:content,
+                    rawcontent:rawcontent,
+                    datetime:datetime,
+                    tag:tag
+                },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    $.Pro("写入成功", {
+                        Time: 2,
+                        EndOn: function () {
+                            window.location.href = "http://{$_SERVER['HTTP_HOST']}/admin/admin/postmanager";
+                        }
+                    });
+                },
+                error: function (e) {
+                    $.Pro("写入异常", {
+                        Time: 1
+                    });
+                }
+            });
+        }else{
+            $.Pro("不能留空", {
+                Time: 1
+            });
+        }
+
+    }
+
+</script>
+{/block}

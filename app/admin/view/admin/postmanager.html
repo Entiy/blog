@@ -1,0 +1,173 @@
+{extend name="dstp/index" /}
+{block name="title"}
+文章管理
+{/block}
+{block name="outlinks"}
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="__JS__/justTools.js"></script>
+<script src="__JS__/plug-in.js"></script>
+<link rel="stylesheet" href="__CSS__/just-tip.css">
+{/block}
+
+{block name="outlet"}
+<div class="outlet">
+
+    <div class="row" style="padding-left: 20px;padding-right: 20px">
+        <!-- Start .row -->
+        <div class="col-lg-12">
+            <!-- col-lg-12 start here -->
+            <div class="page-header">
+                <h4><i class="fa-file-text s20"></i> 文章管理</h4>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- col-lg-12 start here -->
+                    <div class="panel panel-default plain toggle panelClose panelRefresh">
+                        <!-- Start .panel -->
+                        <div class="panel-heading white-bg">
+                        </div>
+                        <div class="panel-body">
+                            <table class="table display table-hover" id="datatable">
+                                <thead>
+                                <tr>
+                                    <th>文章编号</th>
+                                    <th>文章名称</th>
+                                    <th>发布时间</th>
+                                    <th>作者</th>
+                                    <th>标签</th>
+                                    <th>状态（1:删除0:正常）</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {volist name="list" id="vo"}
+                                <tr class="odd gradeX">
+                                    <td>{$vo.id}</td>
+                                    <td>{$vo.title}</td>
+                                    <td>{$vo.datetime}</td>
+                                    <td>{$vo.author}</td>
+                                    <td>{$vo.tag}</td>
+                                    <td>{$vo.dflag}</td>
+                                    <td class="center">
+                                        <span style="cursor: pointer"  class="justEdit" postid="{$vo.id}"><i class="fa-edit s18"></i></span>
+                                        <span style="cursor: pointer"  class="justConfirm" postid="{$vo.id}"><i class="fa-eye-close s18"></i></span>
+                                        <span style="cursor: pointer"  class="justView" postid="{$vo.id}"><i class="fa-eye-open s18"></i></span>
+                                    </td>
+                                </tr>
+                                {/volist}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th colspan="4">文章总数：{$list|count}</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- End .panel -->
+                </div>
+                <!-- col-lg-12 end here -->
+            </div>
+        </div>
+        <!-- col-lg-12 end here -->
+    </div>
+</div>
+
+<script>
+
+
+    $(".justConfirm").click(function(event) {
+        var _this = $(this);
+        _this.justToolsTip({
+            confirm: true,
+            animation: "moveInTop",
+            contents: "确定要屏蔽吗？",
+            gravity: 'top',
+            onYes: function (self) {
+                $postid = _this.attr("postid");
+                $.ajax({
+                    url: "disablepost",
+                    data: {
+                        postid: $postid,
+                    },
+                    type: "get",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == "1000") {
+                            $.Pro("文章已被屏蔽", {
+                                Time: 1,
+                                EndOn: function () {
+                                    window.location.href = "http://{$_SERVER['HTTP_HOST']}/admin/admin/postmanager";
+                                }
+                            });
+                        }
+                    }
+                });
+            },
+            onNo: function (self) {
+                $postid = _this.attr("postid");
+                $.ajax({
+                    url: "ablepost",
+                    data: {
+                        postid: $postid,
+                    },
+                    type: "get",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == "1006") {
+                            $.Pro("文章已被取消屏蔽", {
+                                Time: 1,
+                                EndOn: function () {
+                                    window.location.href = "http://{$_SERVER['HTTP_HOST']}/admin/admin/postmanager";
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        })
+    })
+
+    $(".justView").click(function(event){
+        $postid=$(this).attr("postid");
+        $.ajax({
+            url: "http://{$_SERVER['HTTP_HOST']}/admin/admin/viewpost",
+            data: {
+                postid:$postid,
+            },
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                if(data=="1000")
+                    $.Pro("文章被屏蔽",{
+                        Time:1
+                    });
+                else
+                    window.location.href = "http://{$_SERVER['HTTP_HOST']}/admin/admin/viewpost?postid="+$postid;
+            }
+        });
+    });
+
+    $(".justEdit").click(function(event){
+        $postid=$(this).attr("postid");
+        $.ajax({
+            url: "http://{$_SERVER['HTTP_HOST']}/admin/admin/editpost",
+            data: {
+                postid:$postid,
+            },
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                if(data=="1000")
+                     $.Pro("文章被屏蔽",{
+                         Time:1
+                     });
+                else
+                    window.location.href = "http://{$_SERVER['HTTP_HOST']}/admin/admin/editpost?postid="+$postid;
+
+            }
+        });
+
+    });
+</script>
+{/block}

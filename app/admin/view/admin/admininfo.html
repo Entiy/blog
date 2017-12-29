@@ -1,0 +1,227 @@
+{extend name="dstp/index" /}
+{block name="title"}
+个人信息
+{/block}
+{block name="outlinks"}
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="__JS__/justTools.js"></script>
+<script src="__JS__/plug-in.js"></script>
+<link rel="stylesheet" href="__CSS__/just-tip.css">
+
+{/block}
+
+{block name="outlet"}
+<div class="outlet">
+
+    <div class="row" style="padding-left: 20px;padding-right: 20px">
+        <!-- Start .row -->
+        <div class="col-lg-12">
+            <!-- col-lg-12 start here -->
+            <div class="page-header">
+                <h4><i class="fa-user s20"></i> 个人信息</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="panel panel-default plain toggle panelClose panelRefresh">
+                        <!-- Start .panel -->
+                        <div class="panel-heading white-bg">
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="text" class="form-control" name="nick" id="nick" placeholder="昵称">
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="text" class="form-control" name="address" id="address" placeholder="地址">
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="text" class="form-control" name="slogan" id="slogan" placeholder="标语">
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="text" class="form-control" id="weibo" placeholder="微博地址">
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="password" class="form-control" id="password" placeholder="密码">
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="file"  class="form-control" id="face" placeholder="头像">
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="file"  class="form-control" id="weixin" placeholder="微信QR">
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="file"  class="form-control" id="qq" placeholder="QQQR">
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <input type="text" name="aid" value="{$admin.id}" hidden>
+                                <div class="form-group">
+                                    <button onclick="fire()" class="btn btn-default">确认信息</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="panel panel-default plain toggle panelClose panelRefresh">
+                        <!-- Start .panel -->
+                        <div class="panel-heading white-bg">
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <label >
+                                        昵称：<span id="nc">{$admin.nick}</span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label >
+                                        地址：<span id="dz">{$admin.address}</span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label >
+                                        标语：<span id="by">{$admin.slogan}</span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label >
+                                        微博：<span id="wb">{$admin.weibo}</span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label >
+                                        密码：<span id="pwd">***</span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label >
+                                        头像：<img  width="55" height="55" src="/upload/touxiang.jpg">
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label >
+                                        微信：<img  width="55" height="55" src="/upload/weixin.png">
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label >
+                                        Q Q：<img  width="55" height="55" src="/upload/qq.png">
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <button onclick="add()" class="btn btn-default">修改信息</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- col-lg-12 end here -->
+    </div>
+</div>
+<script>
+    function add() {
+        $("#nick").val($("#nc").text());
+        $("#address").val($("#dz").text());
+        $("#slogan").val($("#by").text());
+        $("#weibo").val($("#wb").text());
+    }
+    function fire() {
+        $nick=$("#nick").val();
+        $address=$("#address").val();
+        $slogan=$("#slogan").val();
+        $weibo=$("#weibo").val();
+        $pwd=$("#password").val();
+        $face=$("#face").val();
+        var form = new FormData();
+        form.append("nick",$nick);
+        form.append("address",$address);
+        form.append("slogan",$slogan);
+        form.append("weibo",$weibo);
+        form.append("pwd",$pwd);
+        form.append("face",$("#face")[0].files[0]);
+        form.append("weixin",$("#weixin")[0].files[0]);
+        form.append("qq",$("#qq")[0].files[0]);
+        if ($nick!=""&&$address!=""&&$slogan!=""&&$face!="") {
+            $.ajax({
+                url: "uploadface",
+                data: form,
+                type: "post",
+                processData:false,
+                contentType:false,
+                success: function (data) {
+                    if(data=="1007")
+                        $.Pro("修改成功",{
+                            Time:2,
+                            EndOn: function () {
+                                window.location.href = "http://{$_SERVER['HTTP_HOST']}/admin/admin/admininfo";
+                            }
+                        });
+                },
+                error: function (e) {
+                    $.Pro("修改失败",{
+                        Time:2
+                    });
+                }
+            });
+        } else {
+            $.Pro("不能出现空",{
+                Time:2
+            });
+        }
+    }
+</script>
+{/block}

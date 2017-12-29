@@ -1,0 +1,146 @@
+{extend name="common/base" /}
+
+{block name="title"}
+{$post.title}
+{/block}
+
+{block name="content"}
+<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-10 col-md-offset-1">
+            <div class="row">
+                <div class="col-md-12" id="blogList">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>{$post.title}</h4>
+                            <input id="postid" value="{$post.id}" hidden>
+                            <div class="text-right hidden-xs" style="font-size: smaller">
+                                <span class=" dla"/>{$post.datetime}</span>
+                                <span class=" dla">{$post.count}次阅读</span>
+                                <span class=" dla">{$post->comments|count}条评论</span>
+                                <span class=" dla">作者:{$post.author}</span>
+                                <span class=" dla">标签:{$post.tag}</span>
+                                <span class="dla ">{$azan.good}次点赞</span>
+                                <span class=" dla">{$azan.bad}次点踩</span>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            {$post.content}
+                        </div>
+
+                        <div class="panel-footer">
+                            <div class="text-left hidden-xs">
+                                <div class="row">
+                                {if condition="($post.fswitch!=0) "}
+                                    <div class="col-md-4">
+                                        <small>你要分享吗？ </small>
+                                        <span>
+                                            <a href="" style="text-decoration: none">
+                                                <img src="__IMG__/weibo1.png" width="20" height="20" onmouseover="this.src='__IMG__/weibo.png'" onmouseout="this.src='__IMG__/weibo1.png'"/>
+                                            </a>
+                                        </span>
+                                        <span>
+                                            <a href="" style="text-decoration: none">
+                                                <img src="__IMG__/weixin1.png" width="20" height="20" onmouseover="this.src='__IMG__/weixin.png'" onmouseout="this.src='__IMG__/weixin1.png'"/>
+                                            </a>
+                                        </span>
+                                        <span>
+                                            <a href="" style="text-decoration: none">
+                                                <img src="__IMG__/qq1.png" width="20" height="20" onmouseover="this.src='__IMG__/qq.png'" onmouseout="this.src='__IMG__/qq1.png'"/>
+                                            </a>
+                                        </span>
+                                    </div>
+                                {/if}
+                                    <div class="col-md-4 text-center">
+                                        <span>
+                                            {if condition="($azan.status==1) "}
+                                            <a href="" style="text-decoration: none">
+                                                <img class="hao"  onclick="zan('1')" src="__IMG__/good1.png" width="20" height="20"/>
+                                            </a>
+                                            {else}
+                                            <a href="" style="text-decoration: none">
+                                                <img class="hao"  onclick="zan('1')" src="__IMG__/good.png" width="20" height="20"/>
+                                            </a>
+                                            {/if}
+                                            <small id="goodcount">{$azan.good}</small>
+                                        </span>
+                                        &nbsp;
+                                        <span>
+                                            {if condition="($azan.status==0) "}
+                                            <a href="" style="text-decoration: none">
+                                                <img class="huai" onclick="zan('0')" src="__IMG__/bad1.png" width="20" height="20"/>
+                                            </a>
+                                            {else}
+                                            <a href="" style="text-decoration: none">
+                                                <img class="huai"  onclick="zan('0')" src="__IMG__/bad.png" width="20" height="20"/>
+                                            </a>
+                                            {/if}
+                                             <small id="badcount">{$azan.bad}</small>
+                                        </span>
+                                    </div>
+                                {if condition="($post.mswitch!=0) "}
+                                    <div class="col-md-4 text-right">
+                                        <span>
+                                            <a href="#">
+                                                <img src="__IMG__/zhifubao.png" width="20" height="20" onmouseover="this.src='__IMG__/zhifubao1.png'" onmouseout="this.src='__IMG__/zhifubao.png'"/>
+                                            </a>
+                                        </span>
+                                    </div>
+                                {/if}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            {if condition="($post.cswitch!=0) "}
+            <div class="row">
+                {volist name="list" id="vo"}
+                <div class="col-md-12" id="comments">
+                    <div class="row">
+                        <div class="col-md-1 hidden-xs text-center">
+                            <img src="{$vo.user.pic}" class="img-circle" width="50" height="50"/>
+                        </div>
+                        <div class="col-md-11  small">
+                            <div class="text-left">
+                                {if condition="($vo.fromid==0) "}
+                                <span class="label label-danger small">作者 </span>&nbsp;
+                                {else /}  <span class="text-primary small"><strong>{$vo.fusername}</strong> </span>
+                                {/if}
+                                &nbsp;
+                                <span> <img src="__IMG__/{$vo.browser}.png" width="15" height="15" id="lookview"><span id="bname"></span></span>
+                                <span> <img src="__IMG__/{$vo.os}.png" width="15" height="15" id="osview"><span id="oname"></span></span>
+                                &nbsp;
+                                <span> <img src="__IMG__/date.png" width="14" height="14"><small style="color: #888888"> {$vo.datetime}</small></span>
+                            </div>
+                            <div>
+                                <br>
+                                <div>
+                                    <p>
+                                        {if condition="($vo.toid!==null) "}
+                                        回复<a href="#"> @{$vo.tusername}:</a> &nbsp; {$vo.content}
+                                        {else /} {$vo.content}
+                                        {/if}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                {/volist}
+            </div>
+            {else \}评论关闭
+            {/if}
+
+        </div>
+    </div>
+
+</div>
+{/block}

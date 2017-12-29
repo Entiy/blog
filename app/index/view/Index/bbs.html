@@ -1,0 +1,310 @@
+{extend name="common/base" /}
+
+{block name="title"}
+留言板
+{/block}
+{block name="content"}
+<script src="__JS__/justTools.js"></script>
+<script src="__JS__/plug-in.js"></script>
+<link rel="stylesheet" href="__CSS__/just-tip.css">
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-10 col-md-offset-1">
+            <div class="row">
+                <div class="col-md-12" id="blogList">
+
+                    <div class="well well-md text-center">
+                        <label>留言板</label><br>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div class="row">
+                {volist name="list" id="vo"}
+                <div class="col-md-12" id="comments">
+                    <div class="row">
+                        <div class="col-md-1 hidden-xs text-center">
+                            {if condition="($vo.fromid==0)"}
+                            <img src="/upload/touxiang.jpg" class="img-circle" width="50" height="50"/>
+                            {else /}
+                            <img src="{$vo.user.pic}" class="img-circle" width="50" height="50"/>
+                            {/if}
+                        </div>
+                        <div class="col-md-11  small">
+                            <div class="text-left">
+                                {if condition="($vo.fromid==0) "}
+                                <span style="color:white; border-radius:3px; background-color: #d9534f; padding: 1px 3px 1px 3px;" class="small">作者 </span>&nbsp;
+                                {else /}  <span class="text-primary small"><strong>{$vo.fusername}</strong> </span>
+                                {/if}
+                                <span> <img src="__IMG__/{$vo.browser}.png" width="15" height="15" id="lookview"><span id="bname"></span></span>
+                                <span> <img src="__IMG__/{$vo.os}.png" width="15" height="15" id="osview"><span id="oname"></span></span>
+                                <span> <img src="__IMG__/zb.png" width="15" height="15" id="view"><span id="ipname"></span></span>
+
+                                <span style="float: right;cursor: pointer"> <small style="color: #888888;"> {$vo.datetime|strtotime|format_date}</small> <a style="text-decoration: none" data-cid="{$vo.fromid}" data-user="{$vo.fusername}" data-toggle="modal" data-target="#myModal">回复</a></span>
+
+
+                            </div>
+                            <div>
+                                <br>
+                                <div>
+                                    <p>
+                                        {if condition="($vo.toid!==null) "}
+                                        {if condition="($vo.toid==0) "}
+                                        回复 <span style="color:white; border-radius:3px; background-color: #d9534f; padding: 1px 3px 1px 3px;" class="small">作者 </span>&nbsp;
+                                        : {$vo.content}
+                                        {else /} 回复<a href="#"> @{$vo.tusername}:</a> &nbsp; {$vo.content}
+                                        {/if}
+                                        {else /}  {$vo.content}
+                                        {/if}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                {/volist}
+            </div>
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h6 class="modal-title" id="exampleModalLabel"></h6>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group"  >
+                                <label for="qq1" class="control-label">QQ号码&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span id="infoqq1"></span></label>
+                                <div class="" style="width: 25%" >
+                                    <input {$Think.session.disable}  value="{$Think.session.userqq}" type="number" class="form-control input-sm" id="qq1" placeholder="QQ号码" onblur="getqq1()">
+                                </div>
+                            </div>
+                            <div class="form-group" >
+                                <label for="nick1" class=" control-label">QQ昵称</label>
+                                <div class="" style="width: 25%">
+                                    <input value="{$Think.session.username}" type="text" class="form-control input-sm" id="nick1" placeholder="QQ昵称" disabled>
+                                    <input  value="{$Think.session.pic}" type="text" id="pic1" hidden>
+                                    <input  value="{$Think.session.userid}" type="text" id="fromid1" hidden>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ctext1" class="control-label">Message:</label>
+                                <textarea class="form-control" id="ctext1"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button onclick="replay()" class="btn btn-default btn-xs">回复</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="form-horizontal" id="comment">
+                                    <div class="form-group">
+                                        <label for="qq" class="col-md-1 control-label">QQ号码</label>
+                                        <div class="col-md-2">
+                                            <input {$Think.session.disable}  value="{$Think.session.userqq}" type="number" class="form-control input-sm" id="qq" placeholder="QQ号码" onblur="getqq()">
+                                        </div>
+                                        <label class="col-md-2 control-label text-danger" id="infoqq">
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nick" class="col-sm-1 control-label">QQ昵称</label>
+                                        <div class="col-md-2">
+                                            <input value="{$Think.session.username}" type="text" class="form-control input-sm" id="nick" placeholder="QQ昵称" disabled>
+                                            <input  value="{$Think.session.pic}" type="text" id="pic" hidden>
+                                            <input  value="{$Think.session.userid}" type="text" id="fromid" hidden>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-1 col-md-5">
+                                            <textarea class="form-control" rows="3" id="ctext"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-1 col-md-10">
+                                            <button onclick="commit()" class="btn btn-default">留言</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script src="__JS__/ua-parser.js"></script>
+<script>
+    var parser = new UAParser();
+    var toid;
+    var tusername;
+    function replay() {
+        $tid=-1;
+        $type=2;
+        $fusername=$("#nick1").val();
+        $fromid=$("#fromid1").val();
+        $browser = parser.getBrowser().name.toLowerCase();
+        $os = parser.getOS().name.toLowerCase();
+        $content = $("#ctext1").val();
+        $qq = $("#qq1").val();
+        $pic = $("#pic1").val();
+
+        if ($content != "") {
+            $.ajax({
+                url: "subpl",
+                data: {qq: $qq,tid: $tid, type: $type,fusername: $fusername, pic: $pic, browser: $browser, os: $os, toid: toid,tusername: tusername, content: $content},
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    $.Pro("回复成功", {
+                        Time: 1,
+                        EndOn: function () {
+                            window.location.href = "http://{$_SERVER['HTTP_HOST']}/index/index/bbs";
+                        }
+                    });
+                },
+                error: function (e) {
+                    $.Pro("回复失败",{
+                        Time:1
+                    });
+                }
+            });
+        } else {
+            $.Pro("内容不能为空",{
+                Time:1
+            });
+        }
+    }
+
+    function getqq1() {
+        $qqnum=$('#qq1').val();
+        if($qqnum!=""){
+            $("#infoqq1").html("正在获取QQ信息...");
+            $.getJSON('getqq?qq='+$qqnum, function(data,status){
+                if(data){
+                    $('#nick1').val(data.name);
+                    $("#pic1").val(data.pic);
+                    $("#qq").val($qqnum);
+                    $('#nick').val(data.name);
+                    $("#pic").val(data.pic);
+                    $("#qq").attr("disabled","disabled");
+                    $("#infoqq1").hide();
+                }else{
+                    $("#infoqq1").hide();
+                    $('#nick1').val("");
+                    $('#qq1').val("");
+                    $.Pro("获取QQ信息失败",{
+                        Time:1
+                    });
+                }
+            });
+        }else {
+            $.Pro("QQ不能为空",{
+                Time:1
+            });
+        }
+
+    }
+    function getqq() {
+        $qqnum=$('#qq').val();
+        if($qqnum!=""){
+            $("#infoqq").html("正在获取QQ信息...");
+            $.getJSON('getqq?qq='+$qqnum, function(data,status){
+                if(data){
+                    $('#nick').val(data.name);
+                    $("#pic").val(data.pic);
+                    $("#qq1").val($qqnum);
+                    $('#nick1').val(data.name);
+                    $("#pic1").val(data.pic);
+                    $("#qq").attr("disabled","disabled");
+                    $("#qq1").attr("disabled","disabled");
+                    $("#infoqq").hide();
+                }else{
+                    $("#infoqq").hide();
+                    $('#nick').val("");
+                    $('#qq').val("");
+                    $.Pro("获取QQ信息失败",{
+                        Time:1
+                    });
+                }
+            });
+        }else {
+            $.Pro("QQ不能为空",{
+                Time:1
+            });
+        }
+
+    }
+
+    function commit () {
+        $tid=-1;
+        $type=2;
+        $fusername=$("#nick").val();
+        $fromid=$("#fromid").val();
+        $browser = parser.getBrowser().name.toLowerCase();
+        $os = parser.getOS().name.toLowerCase();
+        $content = $("#ctext").val();
+        $qq = $("#qq").val();
+        $pic = $("#pic").val();
+        if ($content != "") {
+            $.ajax({
+                url: "subpl",
+                data: {
+                    qq:$qq,
+                    tid:$tid,
+                    type:$type,
+                    type:$type,
+                    fromid:$fromid,
+                    fusername:$fusername,
+                    pic:$pic,
+                    browser:$browser,
+                    os:$os,
+                    content:$content
+                },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    $.Pro("留言成功", {
+                        Time: 1,
+                        EndOn: function () {
+                            window.location.href = "http://{$_SERVER['HTTP_HOST']}/index/index/bbs";
+                        }
+                    });
+                },
+                error: function (e) {
+                    $.Pro("留言失败",{
+                        Time:1
+                    });
+                }
+            });
+        } else {
+            $.Pro("内容不能为空",{
+                Time:1
+            });
+        }
+    }
+
+    $('#myModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        tusername = button.data('user');
+        toid=button.data('cid');
+        var modal = $(this);
+        if(toid==0){
+            modal.find('.modal-title').text('回复 @作者');
+        }else{
+            modal.find('.modal-title').text('回复 @' + tusername);
+        }
+    })
+</script>
+{/block}

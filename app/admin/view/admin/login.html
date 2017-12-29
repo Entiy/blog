@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>后台登陆</title>
+    <!-- Bootstrap -->
+    <link href="__CSS__/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="__JS__/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="__JS__/justTools.js"></script>
+    <script src="__JS__/plug-in.js"></script>
+    <link rel="stylesheet" href="__CSS__/just-tip.css">
+    <style>
+        body {
+            padding-top: 70px;/*有顶部固定导航条时设置*/
+            padding-bottom: 70px;/*有底部固定导航条时设置*/
+        }
+        .czjz{
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+<div method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 czjz">
+                <p class="text-center"><img src="__IMG__/user.png" width="20" height="20">登陆后端</p>
+                <hr/>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="pwd"/>
+                    <span class="input-group-btn">
+                            <button onclick="submit()" class="btn btn-default">进入</button>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function submit() {
+        $pwd=$("#pwd").val();
+        if($pwd!=""){
+            $.ajax({
+                url: "logindeal",
+                data: {pwd: $pwd},
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if(data=="1013"){
+                        window.location.href = "http://{$_SERVER['HTTP_HOST']}/admin/admin/total";
+                    }else if(data=="1012"){
+                        $.Pro("密码不正确", {
+                            Time: 1
+                        });
+                    }
+                },
+                error: function (e) {
+                    $.Pro("登陆失败", {
+                        Time: 1
+                    });
+                }
+            });
+        }else{
+            $.Pro("密码不能为空", {
+                Time: 1
+            });
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+{extend name="dstp/index" /}
+{block name="title"}
+统计
+{/block}
+{block name="outlinks"}
+<link rel="stylesheet" href="/simplemde/dist/simplemde.min.css">
+<script src="/simplemde/dist/simplemde.min.js"></script>
+<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+
+{/block}
+
+{block name="outlet"}
+<div class="outlet">
+    <div class="row" style="padding-left: 20px;padding-right: 20px">
+        <!-- Start .row -->
+        <div class="col-lg-12">
+            <!-- col-lg-12 start here -->
+            <div class="page-header">
+                <h4><i class="br-stats s20"></i> 数据统计</h4>
+            </div>
+            <div class="row">
+                <!-- Start .row -->
+                <div class="col-md-12">
+                    <!-- col-lg- start here -->
+                    <div class="panel panel-default toggle" >
+                        <!-- Start .panel -->
+                        <div class="panel-heading" style="backgroud-color:#f3f5f6;color: #636060">
+                            <h4 class="panel-title"><i class="im-pie"></i>文章信息统计</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="pie-charts">
+                                <div class="easy-pie-chart" data-percent="45">{$postcount}</div>
+                                <div class="label">文章篇数</div>
+                            </div>
+                            <div class="pie-charts ">
+                                <div class="easy-pie-chart" data-percent="7">{$commentcount}</div>
+                                <div class="label">评论条数</div>
+                            </div>
+                            <div class="pie-charts ">
+                                <div class="easy-pie-chart" data-percent="28">{$readcount}</div>
+                                <div class="label">阅读次数</div>
+                            </div>
+                            <div class="pie-charts ">
+                                <div class="easy-pie-chart" data-percent="65">{$tagcount|count}</div>
+                                <div class="label">标签个数</div>
+                            </div>
+                            <div class="pie-charts ">
+                                <div class="easy-pie-chart" data-percent="23">功能尚无</div>
+                                <div class="label">分享次数</div>
+                            </div>
+                            <div class="pie-charts ">
+                                <div class="easy-pie-chart" data-percent="88">{$bbscount}</div>
+                                <div class="label">留言条数</div>
+                            </div>
+                            <div class="pie-charts ">
+                                <div class="easy-pie-chart" data-percent="88">{$zcount.good}</div>
+                                <div class="label">点赞次数</div>
+                            </div>
+                            <div class="pie-charts ">
+                                <div class="easy-pie-chart" data-percent="88">{$zcount.bad}</div>
+                                <div class="label">点踩次数</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End .panel -->
+                </div>
+                <!-- col-lg-6 end here -->
+                <div class="col-md-12">
+                    <!-- col-lg- start here -->
+                    <div class="panel panel-default toggle">
+                        <!-- Start .panel -->
+                        <div class="panel-heading" style="backgroud-color:#f3f5f6;color: #636060">
+                            <h4 class="panel-title"><i class="im-bars"></i> 用户访问统计</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <!-- col-lg-3 start here -->
+                                    <div class="tile gray-spr m0 mb20">
+                                        <div class="tile-content text-center clearfix">
+                                            <div class="label">用户数量</div>
+                                            <div class="spark-number"><i class="ec-users"></i> 12,678</div>
+                                            <div class="spark clearfix">
+                                                <div class="percent"><i class="im-arrow-up-right3 color-green"></i> 3.08%</div>
+                                                <div class="sparkline sparkline-positive"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- col-lg-3 end here -->
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <!-- col-lg-3 start here -->
+                                    <div class="tile gray-spr m0 mb20">
+                                        <div class="tile-content text-center clearfix">
+                                            <div class="label">阅读时间</div>
+                                            <div class="spark-number"><i class="ec-clock"></i> 5m 26s</div>
+                                            <div class="spark clearfix">
+                                                <div class="percent"><i class="im-arrow-down-right2 color-red"></i> 10.24%</div>
+                                                <div class="sparkline sparkline-negative"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- col-lg-3 end here -->
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <!-- col-lg-3 start here -->
+                                    <div class="tile gray-spr m0 mb20">
+                                        <div class="tile-content text-center clearfix">
+                                            <div class="label">New visitors</div>
+                                            <div class="spark-number"><i class="ec-users"></i> 2367</div>
+                                            <div class="spark clearfix">
+                                                <div class="percent"><i class="im-arrow-up-right3 color-green"></i> 84.29%</div>
+                                                <div class="sparkline sparkline-bar-positive"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- col-lg-3 end here -->
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <!-- col-lg-3 start here -->
+                                    <div class="tile gray-spr m0 mb20">
+                                        <div class="tile-content text-center clearfix">
+                                            <div class="label">浏览次数</div>
+                                            <div class="spark-number"><i class="fa-eye-open"></i> 2300</div>
+                                            <div class="spark clearfix">
+                                                <div class="percent"><i class="im-arrow-down-right2 color-red"></i> 17.65%</div>
+                                                <div class="sparkline sparkline-bar-negative"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- col-lg-3 end here -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End .panel -->
+                </div>
+                <!-- col-lg-6 end here -->
+                <div class="col-md-6">
+                    <div class="panel panel-danger toggle panelRefresh">
+                        <!-- Start .panel -->
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><i class="im-bars"></i>阅读统计</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="page-header">
+                                <h5>阅读数排行</h5>
+                            </div>
+                            <ul class="list-group">
+                                {volist name="rlist" id="vo" }
+                                <li  class="list-group-item"><a style="text-decoration: none" href="http://{$_SERVER['HTTP_HOST']}/index/index/post?postid={$vo.id}">{$vo.title}</a> <span style="float:right;color:white; border-radius:3px; background-color: #f48586; padding: 1px 3px 1px 3px;" class="small">{$vo.count}阅</span>&nbsp;</li>
+                                {/volist}
+                            </ul>
+                            <div class="page-header">
+                                <h5>点赞数排行</h5>
+                            </div>
+                            <ul class="list-group">
+                                {volist name="glist" id="vo" }
+                                <li  class="list-group-item"><a style="text-decoration: none" href="http://{$_SERVER['HTTP_HOST']}/index/index/post?postid={$vo.tid}">{$vo.title}</a> <span style="float:right;color:white; border-radius:3px; background-color: #f48586; padding: 1px 3px 1px 3px;" class="small">{$vo.gc}赞</span></li>
+                                {/volist}
+                            </ul>
+                            <div class="page-header">
+                                <h5>评论数排行</h5>
+                            </div>
+                            <ul class="list-group">
+                                {volist name="clist" id="vo" }
+                                <li  class="list-group-item"><a style="text-decoration: none" href="http://{$_SERVER['HTTP_HOST']}/index/index/post?postid={$vo.tid}">{$vo.title}</a> <span style="float:right;color:white; border-radius:3px; background-color: #f48586; padding: 1px 3px 1px 3px;" class="small">{$vo.cc}评</span></li>
+                                {/volist}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-teal toggle panelMove panelClose panelRefresh">
+                        <!-- Start .panel -->
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><i class="im-fire"></i>最新信息</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="page-header">
+                                <h5>最新评论</h5>
+                            </div>
+                            {volist name="nclist" id="vo" }
+                                <p>
+                                    {if condition="($vo.fromid==0) "}
+                                    <span style="color:white; border-radius:3px; background-color: #d9534f; padding: 1px 3px 1px 3px;" class="small">作者 </span>&nbsp;
+                                    {else /}  <span class="text-primary small"><strong>{$vo.fusername}</strong> </span>
+                                    {/if}
+                                    {if condition="($vo.toid!==null) "}
+                                    {if condition="($vo.toid==0) "}
+                                    评论回复 <span style="color:white; border-radius:3px; background-color: #d9534f; padding: 1px 3px 1px 3px;" class="small">作者 </span>&nbsp;
+                                    : {$vo.content} <span class="text-primary small" style="float: right">{$vo.datetime|strtotime|format_date}</span>
+                                    {else /} 评论回复 <span class="text-primary small"><strong> @{$vo.tusername}</strong> </span> 关于文章<a style="text-decoration: none" href="http://{$_SERVER['HTTP_HOST']}/index/index/post?postid={$vo.tid}">{$vo.title}</a> :&nbsp; {$vo.content} <span class="text-primary small" style="float: right">{$vo.datetime|strtotime|format_date}</span>
+                                    {/if}
+                                    {else /}评论了文章 <a style="text-decoration: none" href="http://{$_SERVER['HTTP_HOST']}/index/index/post?postid={$vo.tid}">{$vo.title}</a> : {$vo.content} <span class="text-primary small" style="float: right">{$vo.datetime|strtotime|format_date}</span>
+                                    {/if}
+                                </p>
+                            {/volist}
+                            <div class="page-header">
+                                <h5>最新留言</h5>
+                            </div>
+                            {volist name="bclist" id="vo" }
+                            <p>
+                                {if condition="($vo.fromid==0) "}
+                                <span style="color:white; border-radius:3px; background-color: #d9534f; padding: 1px 3px 1px 3px;" class="small">作者 </span>&nbsp;
+                                {else /}  <span class="text-primary small"><strong>{$vo.fusername}</strong> </span>
+                                {/if}
+                                {if condition="($vo.toid!==null) "}
+                                {if condition="($vo.toid==0) "}
+                                留言回复 <span style="color:white; border-radius:3px; background-color: #d9534f; padding: 1px 3px 1px 3px;" class="small">作者 </span>&nbsp;
+                                : {$vo.content} <span class="text-primary small" style="float: right">{$vo.datetime|strtotime|format_date}</span>
+                                {else /} 留言回复 <span class="text-primary small"><strong> @{$vo.tusername} :</strong></span>  {$vo.content} <span class="text-primary small" style="float: right">{$vo.datetime|strtotime|format_date}</span>
+                                {/if}
+                                {else /}留言 : {$vo.content} <span class="text-primary small" style="float: right">{$vo.datetime|strtotime|format_date}</span>
+                                {/if}
+                            </p>
+                            {/volist}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End .row -->
+        </div>
+        <!-- col-lg-12 end here -->
+    </div>
+</div>
+{/block}
