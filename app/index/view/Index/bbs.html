@@ -40,7 +40,7 @@
                                 {/if}
                                 <span> <img src="__IMG__/{$vo.browser}.png" width="15" height="15" id="lookview"><span id="bname"></span></span>
                                 <span> <img src="__IMG__/{$vo.os}.png" width="15" height="15" id="osview"><span id="oname"></span></span>
-                                <span> <img src="__IMG__/zb.png" width="15" height="15" id="view"><span id="ipname"></span></span>
+                               <span> <img src="__IMG__/zb.png" width="15" height="15" id="view"> <span id="ipname">{$vo.ip}</span></span>
 
                                 <span style="float: right;cursor: pointer"> <small style="color: #888888;"> {$vo.datetime|strtotime|format_date}</small> <a style="text-decoration: none" data-cid="{$vo.fromid}" data-user="{$vo.fusername}" data-toggle="modal" data-target="#myModal">回复</a></span>
 
