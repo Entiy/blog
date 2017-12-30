@@ -19,8 +19,17 @@ class Index extends BaseController
 {
 
     public function index(){
-        $list=PostService::getPostList();
-        $this->assign("list",$list);
+        $list=PostService::getPostsByPage(10);
+        $this->assign('page', $list->render());
+        $list=$list->toArray();
+        if(!empty($list['data'])){
+            foreach ($list['data'] as $key=>&$value){//注意是$list['data']，又包了一层
+                $count=CommentService::getCommentCountByPostId($value['id']);
+                $value['commentcount']=$count;//增加字段
+            }
+            unset($value);
+        }
+        $this->assign("list",$list['data']);
         $admininfo=AdminService::getAdminInfo();
         $pv=PvService::getPv();
         $this->assign("admin",$admininfo);

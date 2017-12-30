@@ -133,4 +133,9 @@ class PostService
         $list=Db::table("comment")->field(['tid','count(tid) as cc'])->where(["type"=>1])->group("tid")->order("cc","desc")->limit(10)->select();
         return $list;
     }
+    public static function getPostsByPage($num){
+        $listpages=Db::table("post")->where(["dflag"=>0])->paginate($num);
+        return $listpages;
+    }
+
 }

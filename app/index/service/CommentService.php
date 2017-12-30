@@ -78,4 +78,8 @@ class CommentService
         $list=Db::table("comment")->where(["type"=>$type])->order("datetime","desc")->limit(10)->select();
         return $list;
     }
+    public static function getCommentCountByPostId($postid){
+        $count=Db::table("comment")->where("tid",$postid)->count();
+        return $count;
+    }
 }
