@@ -53,6 +53,7 @@
                                     <td class="center">
                                         <span style="cursor: pointer"  class="DisableComent" cid="{$vo.id}"><i class="fa-eye-close s18"></i></span>
                                         <span style="cursor: pointer"  class="ViewComent" cid="{$vo.id}"><i class="fa-eye-open s18"></i></span>
+                                        <span style="cursor: pointer"  class="justDelete" postid="{$vo.id}"><i class="fa-trash s18"></i></span>
                                     </td>
                                 </tr>
                                 {/volist}
@@ -155,6 +156,39 @@
                         }
                     }
                 });
+            }
+        })
+    });
+    $(".justDelete").click(function(event) {
+        var _this = $(this);
+        _this.justToolsTip({
+            confirm: true,
+            animation: "moveInTop",
+            contents: "确定要删除吗？",
+            gravity: 'top',
+            onYes: function (self) {
+                $postid = _this.attr("postid");
+                $.ajax({
+                    url: "deletecomment",
+                    data: {
+                        postid: $postid,
+                    },
+                    type: "get",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == "1016") {
+                            $.Pro("评论已被删除", {
+                                Time: 1,
+                                EndOn: function () {
+                                    window.location.href = "http://{$_SERVER['HTTP_HOST']}/admin/admin/commentmanager";
+                                }
+                            });
+                        }
+                    }
+                });
+            },
+            onNo: function (self) {
+                return true;
             }
         })
     });

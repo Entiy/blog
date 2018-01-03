@@ -82,4 +82,7 @@ class CommentService
         $count=Db::table("comment")->where("tid",$postid)->count();
         return $count;
     }
+    public static function deleteCommentById($id){
+        Comment::destroy($id);
+    }
 }

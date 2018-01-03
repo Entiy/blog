@@ -231,6 +231,11 @@ class Admin extends  AdminController{
         $res=PostService::updatePostById($postinfo);
         return $res;
     }
+    public function deletePost(Request $request){
+        $postid=$request->get("postid");
+        PostService::deletePostById($postid);
+        return "1015";
+    }
     public function vieComment(Request $request){
         $cid=$request->get("cid");
         $comment=CommentService::getCommentById($cid);
@@ -246,6 +251,11 @@ class Admin extends  AdminController{
         $cid=$request->get("cid");
         CommentService::ableCommentById($cid);
         return "1005";
+    }
+    public function deleteComment(Request $request){
+        $postid=$request->get("postid");
+        CommentService::deleteCommentById($postid);
+        return "1016";
     }
     public function viewPost(Request $request){
         $postid=$request->get("postid");

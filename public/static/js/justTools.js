@@ -224,8 +224,8 @@
             distance:10,
             animation: 'none', //none, fadeIn, flipIn, moveInLeft, moveInTop, moveInBottom, moveInRight
             confirm: false,
-            yes: '屏蔽',
-            no: '取消屏蔽',
+            yes: '确定',
+            no: '取消',
             onYes: function(){}, //返回ture，关闭tools
             onNo: function(){}
         }

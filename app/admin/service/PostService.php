@@ -7,9 +7,7 @@
  */
 
 namespace app\admin\service;
-use app\admin\model\Comment;
 use app\admin\model\Post;
-use app\admin\model\Zan;
 use think\Db;
 
 class PostService
@@ -102,6 +100,19 @@ class PostService
         $post->save();
         return "success";
     }
+
+    public static function deletePostById($postid){
+        Db::startTrans();
+        try{
+            Db::table("post")->where(['id'=>$postid])->delete();
+            Db::table("comment")->where(['tid'=>$postid])->delete();
+            Db::commit();
+        } catch (\Exception $e) {
+            Db::rollback();
+        }
+      return "success";
+    }
+
     public static function ablePostById($postid){
         $post=Post::get($postid);
         $post->dflag=0;
