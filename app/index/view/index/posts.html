@@ -58,28 +58,20 @@
                                     </div>
                                 {/if}
                                     <div class="col-md-4 text-center">
-                                        <span>
+                                        <span style="cursor:pointer">
                                             {if condition="($azan.status==1) "}
-                                            <a href="" style="text-decoration: none">
                                                 <img class="hao"  onclick="zan('1')" src="__IMG__/good1.png" width="20" height="20"/>
-                                            </a>
                                             {else}
-                                            <a href="" style="text-decoration: none">
                                                 <img class="hao"  onclick="zan('1')" src="__IMG__/good.png" width="20" height="20"/>
-                                            </a>
                                             {/if}
                                             <small id="goodcount">{$azan.good}</small>
                                         </span>
                                         &nbsp;
-                                        <span>
+                                        <span  style="cursor:pointer">
                                             {if condition="($azan.status==0) "}
-                                            <a href="" style="text-decoration: none">
                                                 <img class="huai" onclick="zan('0')" src="__IMG__/bad1.png" width="20" height="20"/>
-                                            </a>
                                             {else}
-                                            <a href="" style="text-decoration: none">
                                                 <img class="huai"  onclick="zan('0')" src="__IMG__/bad.png" width="20" height="20"/>
-                                            </a>
                                             {/if}
                                              <small id="badcount">{$azan.bad}</small>
                                         </span>
