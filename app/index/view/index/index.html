@@ -12,7 +12,7 @@
             {volist name="list" id="vo"}
             <div class="row" style="margin-left: 5%">
                 <div class="col-md-12" >
-                    <div style="border:1px dashed #EEEEEE;padding: 7px 20px 7px 20px;">
+                    <div style="border-radius:5px;border:1px dashed #EEEEEE;padding: 7px 20px 7px 20px;">
                         <div class="row">
                             <div class="col-md-12">
                          <div>
@@ -49,7 +49,7 @@
         <!-- 右侧-->
         <div class="col-md-4 hidden-sm hidden-xs">
             <!-- 描述-->
-            <div class="row text-center" style="margin-right: 10%;margin-left: 5%;margin-top: 0%">
+            <div class="row text-center" style="margin-right: 10%;margin-left: 5%;margin-top: 5%">
                     <p>
                         <span id="pv">访问次数: {$pv.pv}</span>
                     </p>
@@ -76,7 +76,7 @@
                     </p>
                 </div>
             </div>
-            <div class="row " style="margin-right: 10%;margin-left: 5%;margin-top: 0%">
+            <div class="row " style="margin-right: 10%;margin-left: 5%;margin-top: 5%;border-radius:5px;border: 1px solid rgb(204, 204, 204);padding-top: 0px;padding-left: 20px;padding-right: 20px;padding-bottom: 10px">
                 <div class="page-header" style="margin-bottom: 10px;margin-top: 20px;padding-bottom: 0px">
                     <h5><span class="glyphicon glyphicon-cloud"></span>  标签云</h5>
                 </div>
@@ -90,19 +90,19 @@
                     </div>
                 </div>
             </div>
-            <div class="row" style="margin-right: 10%;margin-left: 5%;margin-top: 5%">
+            <div class="row " style="margin-right: 10%;margin-left: 5%;margin-top: 5%;border-radius:5px;border: 1px solid rgb(204, 204, 204);padding-top: 0px;padding-left: 20px;padding-right: 20px;padding-bottom: 10px">
                 <div class="page-header"  style="margin-bottom: 10px;margin-top: 20px;padding-bottom: 0px">
                     <h5><span class="glyphicon glyphicon-signal"></span> 最近阅读</h5>
                 </div>
                 <div class="col-md-12" style="padding-left: 0px">
-                    <div class="list-group">
-                        {volist name="readcountlist" id="vo" }
-                        <a href="http://{$_SERVER['HTTP_HOST']}/index/index/post?postid={$vo.id}" class="list-group-item">
+                    {volist name="readcountlist" id="vo" }
+                    <div style="border-bottom: 1px dashed #ccc;margin-bottom: 5px;line-height: 28px;">
+                        <a href="http://{$_SERVER['HTTP_HOST']}/index/index/post?postid={$vo.id}" style="text-decoration: none;color: #1b1f23;">
                             {$vo.title}
                             <span class="label label-danger" style="float: right">{$vo.count}阅</span>
                         </a>
-                        {/volist}
                     </div>
+                    {/volist}
                 </div>
             </div>
         </div>
