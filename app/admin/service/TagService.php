@@ -29,6 +29,12 @@ class TagService
         return "success";
     }
 
+    public static function getTagByPage($num){
+        $list=new Tag();
+        $list=$list->paginate($num);
+        return $list;
+    }
+
     public static function TagInfo(){
         $list=Tag::all();
         $tag=array();

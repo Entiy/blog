@@ -91,9 +91,9 @@ class PostService
       return $list;
     }
 
-    public static function getPostListByTag($tag){
+    public static function getPostListByTag($tag,$num){
       $list=new Post();
-      $list=$list->where(["tag"=>$tag,"dflag"=>0])->order("datetime","desc")->select();
+      $list=$list->where(["tag"=>$tag,"dflag"=>0])->order("datetime","desc")->paginate($num,false,['query'=>['tag'=>$tag]]);
       return $list;
     }
     public static function disablePostById($postid){

@@ -28,11 +28,11 @@ class CommentService
         return $list;
     }
 
-    public static function getCommentListByType($type){
+    public static function getCommentListByType($type,$num){
         $list=new Comment();
         $list=$list->where([
             "type"=>$type,
-        ])->order('datetime','desc')->select();
+        ])->order('datetime','desc')->paginate($num);
         return $list;
     }
 

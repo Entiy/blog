@@ -76,13 +76,17 @@ class Admin extends  AdminController{
         return $this->fetch("total");
     }
     public function postManager(){
-        $list=PostService::getPostsByTag();
-        $this->assign("list",$list);
+        $list=PostService::getPostsByPage(10);
+        $this->assign('page', $list->render());
+        $list=$list->toArray();
+        $this->assign("list",$list['data']);
         return $this->fetch("postmanager");
     }
-    public function  commentManager(){
-        $list=CommentService::getCommentListByType(1);
-        $this->assign("list",$list);
+    public function commentManager(){
+        $list=CommentService::getCommentListByType(1,10);
+        $this->assign('page', $list->render());
+        $list=$list->toArray();
+        $this->assign("list",$list['data']);
         return $this->fetch("commentmanager");
     }
     public function commentOnOrOff(){
@@ -122,17 +126,18 @@ class Admin extends  AdminController{
         return $this->fetch("navmanager");
     }
     public function tagManager(){
-        $tags=TagService::getAllTag();
+        $tags=TagService::getTagByPage(10);
+        $this->assign('page', $tags->render());
         $this->assign("tags",$tags);
         return $this->fetch("tagmanager");
     }
-
     public function bbsManager(){
-        $list=CommentService::getCommentListByType(2);
-        $this->assign("list",$list);
+        $list=CommentService::getCommentListByType(2,10);
+        $this->assign('page', $list->render());
+        $list=$list->toArray();
+        $this->assign("list",$list['data']);
         return $this->fetch("bbsmanager");
     }
-
     public function writePost(Request $request){
         $author=$request->post("author");
         $title=$request->post("title");
@@ -153,13 +158,11 @@ class Admin extends  AdminController{
         $res=PostService::addPost($post);
         return $res;
     }
-
     public function adminInfo(){
         $admininfo=AdminService::getAdminByID(1);
         $this->assign("admin",$admininfo);
         return $this->fetch("admininfo");
     }
-
     public function addTag(Request $request){
         $tag=$request->post("tag");
         $res=TagService::addTag($tag);
@@ -171,11 +174,9 @@ class Admin extends  AdminController{
         $res=TagService::updateTagByID($tagid,$tagname);
         return $res;
     }
-
     public function index(){
         return  $this->fetch("login");
     }
-
     public function loginDeal(Request $request){
         $pwd=$request->post("pwd");
         $admin=AdminService::getAdminByID(1);
@@ -186,19 +187,16 @@ class Admin extends  AdminController{
             return "1012";
         }
     }
-
     public function disablepost(Request $request){
         $postid=$request->get("postid");
         PostService::disablePostById($postid);
         return "1000";
     }
-
     public function ablepost(Request $request){
         $postid=$request->get("postid");
         PostService::ablePostById($postid);
         return "1006";
     }
-
     public function editPost(Request $request){
         $postid=$request->get("postid");
         $post=PostService::getPostByID($postid);
@@ -233,26 +231,22 @@ class Admin extends  AdminController{
         $res=PostService::updatePostById($postinfo);
         return $res;
     }
-
     public function vieComment(Request $request){
         $cid=$request->get("cid");
         $comment=CommentService::getCommentById($cid);
         $comment=json_encode($comment->toArray());
         return json($comment);
     }
-
     public function disableComment(Request $request){
         $cid=$request->get("cid");
         CommentService::disCommentById($cid);
         return "1004";
     }
-
     public function ableComment(Request $request){
         $cid=$request->get("cid");
         CommentService::ableCommentById($cid);
         return "1005";
     }
-
     public function viewPost(Request $request){
         $postid=$request->get("postid");
         if ($postid!==null){
@@ -281,7 +275,6 @@ class Admin extends  AdminController{
             return "不存在此文章";
         }
     }
-
     public function uploadFace(Request $request){
         $file = $request->file('face');
         $weixin = $request->file('weixin');
@@ -310,14 +303,12 @@ class Admin extends  AdminController{
             }
         }
     }
-
     public function vieBBS(Request $request){
         $cid=$request->get("cid");
         $comment=CommentService::getCommentById($cid);
         $comment=json_encode($comment->toArray());
         return json($comment);
     }
-
     public function disableBBS(Request $request){
         $cid=$request->get("cid");
         CommentService::disCommentById($cid);
