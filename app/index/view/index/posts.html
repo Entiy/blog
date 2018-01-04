@@ -47,7 +47,7 @@
                                         </span>
                                         <span>
                                             <a  id="wxf" href="" style="text-decoration: none">
-                                                <img src="__IMG__/weixin1.png" width="20" height="20" onmouseover="this.src='__IMG__/weixin.png'" onmouseout="this.src='__IMG__/weixin1.png'"/>
+                                                <img src="__IMG__/weixin1.png" width="20" height="20"/>
                                             </a>
                                         </span>
                                         <span>
@@ -453,6 +453,18 @@
             gravity:'bottom'
         });
     })
+
+    $("#wxf").mouseover(function(event){
+        var _this = $(this);
+        _this.justToolsTip({
+            events:event,
+            animation:"moveInBottom",
+            //width:"300px",
+            contents:"<div><img width='100' height='100' src='/upload/zfb.png'/></div><div style='padding-bottom: 0px;'>扫描二维码可分<br>享到微信朋友圈</div>",
+            gravity:'bottom'
+        });
+    })
+
     //分享到新浪微博
     $('#wf').click(function(){
         window.sharetitle = '{$post.title}';//标题

@@ -106,6 +106,7 @@ class PostService
         try{
             Db::table("post")->where(['id'=>$postid])->delete();
             Db::table("comment")->where(['tid'=>$postid])->delete();
+            Db::table("zan")->where(['tid'=>$postid])->delete();
             Db::commit();
         } catch (\Exception $e) {
             Db::rollback();
@@ -145,7 +146,7 @@ class PostService
         return $list;
     }
     public static function getPostsByPage($num){
-        $listpages=Db::table("post")->where(["dflag"=>0])->paginate($num);
+        $listpages=Db::table("post")->paginate($num);
         return $listpages;
     }
 
