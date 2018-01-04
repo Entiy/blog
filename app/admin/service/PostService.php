@@ -145,7 +145,7 @@ class PostService
         return $list;
     }
     public static function getPostsByPage($num){
-        $listpages=Db::table("post")->where(["dflag"=>0])->paginate($num);
+        $listpages=Db::table("post")->paginate($num);
         return $listpages;
     }
 
