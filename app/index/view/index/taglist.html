@@ -2,139 +2,49 @@
 {block name="title"}
 {$Think.request.tag}标签
 {/block}
-{block name="content"}
-<script src="__JS__/justTools.js"></script>
-<link rel="stylesheet" href="__CSS__/just-tip.css">
-<div class="container-fluid">
-    <div class="row">
-        <!-- 左侧-->
-        <div class="col-md-8 col-sm-12" style="border-right:1px dashed #c0c0c0">
-            <div class="row" style="margin-left: 5%">
-                <div class="col-md-12" >
-                    <span class="glyphicon glyphicon-folder-open"> {$Think.request.tag}</span>
-                </div>
+{block name="leftcontent"}
+    <!-- 左侧-->
+    <div class="col-md-8 col-sm-12" style="border-right:1px dashed #c0c0c0">
+        <div class="row" style="margin-left: 5%">
+            <div class="col-md-12" >
+                <span class="glyphicon glyphicon-folder-open"> {$Think.request.tag}</span>
             </div>
-            <hr style="margin-left: 7%">
-            {volist name="list" id="vo"}
-            <div class="row" style="margin-left: 5%">
-                <div class="col-md-12" >
-                    <div style="border-radius:5px;border:1px dashed #EEEEEE;padding: 7px 20px 7px 20px;">
-                        <div class="row">
-                            <div class="col-md-12">
-                         <div>
-                             <p class="text-primary"><a href="http://{$_SERVER['HTTP_HOST']}/index/index/post?postid={$vo.id}" style="color: #000;font-size: 15px;text-decoration: none">{$vo.title}</a></p>
-                         </div>
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-md-6 text-left">
-                                <span class="glyphicon glyphicon-time dla"></span> <span class="dla">{$vo.datetime|strtotime|format_date}</span>
-                                <span class="glyphicon glyphicon-tag dla"></span> <span class="dla">{$vo.tag}</span>
-                            </div>
-                            <div  class="col-md-6 text-right">
-                                <span class="glyphicon glyphicon-eye-open dla"></span> <span class="dla">{$vo.count}</span>
-                                <span class="glyphicon glyphicon-comment dla"></span> <span class="dla">{$vo.commentcount}</span>
-                            </div>
+        </div>
+        <hr style="margin-left: 7%">
+        {volist name="list" id="vo"}
+        <div class="row" style="margin-left: 5%">
+            <div class="col-md-12" >
+                <div style="border-radius:5px;border:1px dashed #EEEEEE;padding: 7px 20px 7px 20px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                     <div>
+                         <p class="text-primary"><a href="http://{$_SERVER['HTTP_HOST']}/index/index/post?postid={$vo.id}" style="color: #000;font-size: 15px;text-decoration: none">{$vo.title}</a></p>
+                     </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <hr style="margin-left: 7%">
-            {/volist}
-            <!-- 翻页-->
-            <div class="row text-center" style="margin-left: 5%">
-                <div class="col-md-12">
-                    <nav aria-label="...">
-                        {$page}
-                    </nav>
+                    <div class="row">
+
+                        <div class="col-md-6 text-left">
+                            <span class="glyphicon glyphicon-time dla"></span> <span class="dla">{$vo.datetime|strtotime|format_date}</span>
+                            <span class="glyphicon glyphicon-tag dla"></span> <span class="dla">{$vo.tag}</span>
+                        </div>
+                        <div  class="col-md-6 text-right">
+                            <span class="glyphicon glyphicon-eye-open dla"></span> <span class="dla">{$vo.count}</span>
+                            <span class="glyphicon glyphicon-comment dla"></span> <span class="dla">{$vo.commentcount}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- 右侧-->
-        <div class="col-md-4 hidden-sm hidden-xs">
-            <!-- 描述-->
-            <div class="row text-center" style="margin-right: 10%;margin-left: 5%;margin-top: 5%">
-                <p>
-                    <span id="pv">访问次数: {$pv.pv}</span>
-                </p>
-                <hr/>
-            </div>
-            <div class="row text-center" style="margin-right: 10%;margin-left: 5%;margin-top: 0%">
-                <div class="col-md-12">
-                    <p>
-                        <span>
-                            <a href="{$admin.weibo}" style="text-decoration: none">
-                                <img src="__IMG__/weibo1.png" width="35" height="35" onmouseover="this.src='__IMG__/weibo.png'" onmouseout="this.src='__IMG__/weibo1.png'"/>
-                            </a>
-                        </span>
-                        <span id="weixin">
-                            <a href="" style="text-decoration: none">
-                                <img src="__IMG__/weixin1.png" width="35" height="35"/>
-                            </a>
-                        </span>
-                        <span id="qq">
-                            <a href="" style="text-decoration: none">
-                                <img src="__IMG__/qq1.png" width="35" height="35"/>
-                            </a>
-                        </span>
-                    </p>
-                </div>
-            </div>
-            <div class="row " style="margin-right: 10%;margin-left: 5%;margin-top: 5%;border-radius:5px;border: 1px solid rgb(204, 204, 204);padding-top: 0px;padding-left: 20px;padding-right: 20px;padding-bottom: 10px">
-                <div class="page-header" style="margin-bottom: 10px;margin-top: 20px;padding-bottom: 0px">
-                    <h5><span class="glyphicon glyphicon-cloud"></span>  标签云</h5>
-                </div>
-                <div class="col-md-12 " style="padding-left: 0px">
-                    <div >
-                        <ul style="padding:0;margin:0;">
-                            {volist name="tag" id="t"}
-                            <li style="list-style: none; float: left; padding: 2px 2px 5px 2px"><a href="http://{$_SERVER['HTTP_HOST']}/index/index/taglist?tag={$t.tagname}"><button class="btn btn-default btn-xs">{$t.tagname} {$t.tagcount}</button></a></li>
-                            {/volist}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row " style="margin-right: 10%;margin-left: 5%;margin-top: 5%;border-radius:5px;border: 1px solid rgb(204, 204, 204);padding-top: 0px;padding-left: 20px;padding-right: 20px;padding-bottom: 10px">
-                <div class="page-header"  style="margin-bottom: 10px;margin-top: 20px;padding-bottom: 0px">
-                    <h5><span class="glyphicon glyphicon-signal"></span> 最近阅读</h5>
-                </div>
-                <div class="col-md-12" style="padding-left: 0px">
-                    {volist name="readcountlist" id="vo" }
-                    <div style="border-bottom: 1px dashed #ccc;margin-bottom: 5px;line-height: 28px;">
-                        <a href="http://{$_SERVER['HTTP_HOST']}/index/index/post?postid={$vo.id}" style="text-decoration: none;color: #1b1f23;">
-                            {$vo.title}
-                            <span class="label label-danger" style="float: right">{$vo.count}阅</span>
-                        </a>
-                    </div>
-                    {/volist}
-                </div>
+        <hr style="margin-left: 7%">
+        {/volist}
+        <!-- 翻页-->
+        <div class="row text-center" style="margin-left: 5%">
+            <div class="col-md-12">
+                <nav aria-label="...">
+                    {$page}
+                </nav>
             </div>
         </div>
     </div>
-
-</div>
-<script>
-    $("#weixin").mouseover(function(event){
-        var _this = $(this);
-        _this.justToolsTip({
-            events:event,
-            animation:"moveInBottom",
-            //width:"300px",
-            contents:"<img width='100' height='100' src='/upload/weixin.png'/>",
-            gravity:'bottom'
-        });
-    })
-    $("#qq").mouseover(function(event){
-        var _this = $(this);
-        _this.justToolsTip({
-            events:event,
-            animation:"moveInBottom",
-            //width:"300px",
-            contents:"<img width='100' height='100' src='/upload/qq.png'/>",
-            gravity:'bottom'
-        });
-    })
-</script>
 {/block}

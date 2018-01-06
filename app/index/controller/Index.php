@@ -30,6 +30,7 @@ class Index extends BaseController
             unset($value);
         }
         $this->assign("list",$list['data']);
+
         $admininfo=AdminService::getAdminInfo();
         $pv=PvService::getPv();
         $this->assign("admin",$admininfo);
@@ -38,10 +39,12 @@ class Index extends BaseController
         $this->assign("tag",$tag);
         $readcountlist=PostService::getPostByReadCount();
         $this->assign("readcountlist",$readcountlist);
+
         return $this->fetch("index");
 
     }
     public function post(Request $request){
+
         $postid=$request->get("postid");
         if ($postid!==null){
             $post=PostService::getPostByIDAndDflag($postid,0);
@@ -62,6 +65,16 @@ class Index extends BaseController
                     }
                 }
                 $this->assign("azan",$zcount);
+
+
+                $admininfo=AdminService::getAdminInfo();
+                $pv=PvService::getPv();
+                $this->assign("admin",$admininfo);
+                $this->assign("pv",$pv);
+                $tag=TagService::TagInfo();
+                $this->assign("tag",$tag);
+                $readcountlist=PostService::getPostByReadCount();
+                $this->assign("readcountlist",$readcountlist);
                 return $this->fetch("posts");
             }else{
                 return "1000";
@@ -144,6 +157,14 @@ class Index extends BaseController
     }
 
     public function bbs(){
+        $admininfo=AdminService::getAdminInfo();
+        $pv=PvService::getPv();
+        $this->assign("admin",$admininfo);
+        $this->assign("pv",$pv);
+        $tag=TagService::TagInfo();
+        $this->assign("tag",$tag);
+        $readcountlist=PostService::getPostByReadCount();
+        $this->assign("readcountlist",$readcountlist);
         $list=CommentService::getCommentList(-1,2);
         $this->assign("list",$list);
         return $this->fetch("bbs");
@@ -220,9 +241,25 @@ class Index extends BaseController
         $this->assign("readcountlist",$readcountlist);
         return $this->fetch("taglist");
     }
-    public function test(){
-        $location = new IpLocation();
-        $addr=$location->getlocation("172.21.14.42");
-        $ip=$addr['country'];
+
+    public function timeline(){
+
+        $list=PostService::getPostsByTimeLine();
+        $times=array();
+        foreach ($list as $e){
+            $t=substr($e['datetime'],0,4);
+            $times[$t][]=$e;
+        }
+        $this->assign("times",$times);
+        $this->assign("timeline",array_keys($times));
+        $admininfo=AdminService::getAdminInfo();
+        $pv=PvService::getPv();
+        $this->assign("admin",$admininfo);
+        $this->assign("pv",$pv);
+        $tag=TagService::TagInfo();
+        $this->assign("tag",$tag);
+        $readcountlist=PostService::getPostByReadCount();
+        $this->assign("readcountlist",$readcountlist);
+        return $this->fetch("timeline");
     }
 }

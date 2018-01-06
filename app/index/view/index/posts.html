@@ -4,89 +4,85 @@
 {$post.title}
 {/block}
 
-{block name="content"}
+{block name="headcontent"}
 <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
 <script src="__JS__/justTools.js"></script>
 <script src="__JS__/plug-in.js"></script>
 <link rel="stylesheet" href="__CSS__/just-tip.css">
-<div class="container-fluid">
-    <div class="row">
+{/block}
 
-        <div class="col-md-10 col-md-offset-1">
-            <div class="row">
-                <div class="col-md-12" id="blogList">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3>{$post.title}</h3>
-                            <input id="postid" value="{$post.id}" hidden>
-                            <div class="text-right hidden-xs" style="font-size: smaller">
-                                <span style="float: left;margin-right: 5px" class="glyphicon glyphicon-time dla"></span> <span style="float: left;margin-right: 5px" class=" dla"/> {$post.datetime}</span>
-                                <span style="float: left;margin-right: 5px" class="glyphicon glyphicon-user dla"></span> <span style="float: left;margin-right: 5px" class=" dla">{$post.author}</span>
-                                <span style="float: left;margin-right: 5px" class="glyphicon glyphicon-tag dla"></span> <span style="float: left;margin-right: 5px" class=" dla">{$post.tag}</span>
-                                <span style="margin-right: 5px" class="glyphicon glyphicon-eye-open dla"></span><span style="margin-right: 5px" class=" dla">{$post.count}</span>
-                                <span style="margin-right: 5px" class="glyphicon glyphicon-comment dla"></span><span style="margin-right: 5px" class=" dla">{$post->comments|count}</span>
-                                <span style="margin-right: 5px" class="glyphicon glyphicon-heart dla"> </span><span style="margin-right: 5px" class="dla ">{$azan.good}</span>
-                                <span style="margin-right: 5px" class="glyphicon glyphicon-heart-empty dla"></span><span style="margin-right: 5px" class=" dla">{$azan.bad}</span>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            {$post.content}
-                        </div>
+{block name="leftcontent"}
+        <div class="col-md-8 col-sm-12" style="border-right:1px dashed #c0c0c0">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>{$post.title}</h3>
+                    <input id="postid" value="{$post.id}" hidden>
+                    <div class="text-right hidden-xs" style="font-size: smaller">
+                        <span style="float: left;margin-right: 5px" class="glyphicon glyphicon-time dla"></span> <span style="float: left;margin-right: 5px" class=" dla"/> {$post.datetime}</span>
+                        <span style="float: left;margin-right: 5px" class="glyphicon glyphicon-user dla"></span> <span style="float: left;margin-right: 5px" class=" dla">{$post.author}</span>
+                        <span style="float: left;margin-right: 5px" class="glyphicon glyphicon-tag dla"></span> <span style="float: left;margin-right: 5px" class=" dla">{$post.tag}</span>
+                        <span style="margin-right: 5px" class="glyphicon glyphicon-eye-open dla"></span><span style="margin-right: 5px" class=" dla">{$post.count}</span>
+                        <span style="margin-right: 5px" class="glyphicon glyphicon-comment dla"></span><span style="margin-right: 5px" class=" dla">{$post->comments|count}</span>
+                        <span style="margin-right: 5px" class="glyphicon glyphicon-heart dla"> </span><span style="margin-right: 5px" class="dla ">{$azan.good}</span>
+                        <span style="margin-right: 5px" class="glyphicon glyphicon-heart-empty dla"></span><span style="margin-right: 5px" class=" dla">{$azan.bad}</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {$post.content}
+                </div>
 
-                        <div class="panel-footer">
-                            <div class="text-left hidden-xs">
-                                <div class="row">
-                                {if condition="($post.fswitch!=0) "}
-                                    <div class="col-md-4">
-                                        <small>你要分享吗？ </small>
-                                        <span>
-                                            <a id="wf" href="" style="text-decoration: none">
-                                                <img src="__IMG__/weibo1.png" width="20" height="20" onmouseover="this.src='__IMG__/weibo.png'" onmouseout="this.src='__IMG__/weibo1.png'"/>
-                                            </a>
-                                        </span>
-                                        <span>
-                                            <a  id="wxf" href="" style="text-decoration: none">
-                                                <img src="__IMG__/weixin1.png" width="20" height="20"/>
-                                            </a>
-                                        </span>
-                                        <span>
-                                            <a id="fq" href="" style="text-decoration: none">
-                                                <img src="__IMG__/qq1.png" width="20" height="20" onmouseover="this.src='__IMG__/qq.png'" onmouseout="this.src='__IMG__/qq1.png'"/>
-                                            </a>
-                                        </span>
-                                    </div>
-                                {/if}
-                                    <div class="col-md-4 text-center">
-                                        <span style="cursor:pointer">
-                                            {if condition="($azan.status==1) "}
-                                                <img class="hao"  onclick="zan('1')" src="__IMG__/good1.png" width="20" height="20"/>
-                                            {else}
-                                                <img class="hao"  onclick="zan('1')" src="__IMG__/good.png" width="20" height="20"/>
-                                            {/if}
-                                            <small id="goodcount">{$azan.good}</small>
-                                        </span>
-                                        &nbsp;
-                                        <span  style="cursor:pointer">
-                                            {if condition="($azan.status==0) "}
-                                                <img class="huai" onclick="zan('0')" src="__IMG__/bad1.png" width="20" height="20"/>
-                                            {else}
-                                                <img class="huai"  onclick="zan('0')" src="__IMG__/bad.png" width="20" height="20"/>
-                                            {/if}
-                                             <small id="badcount">{$azan.bad}</small>
-                                        </span>
-                                    </div>
-                                {if condition="($post.mswitch!=0) "}
-                                    <div class="col-md-4 text-right">
-                                        <span id="zfb">
-                                            <a href="#">
-                                                <img src="__IMG__/zhifubao.png" width="20" height="20" onmouseover="this.src='__IMG__/zhifubao1.png'" onmouseout="this.src='__IMG__/zhifubao.png'"/>
-                                            </a>
-                                        </span>
-                                    </div>
-                                {/if}
-                                </div>
+                <div class="panel-footer">
+                    <div class="text-left hidden-xs">
+                        <div class="row">
+                        {if condition="($post.fswitch!=0) "}
+                            <div class="col-md-4">
+                                <small>你要分享吗？ </small>
+                                <span>
+                                    <a id="wf" href="" style="text-decoration: none">
+                                        <img src="__IMG__/weibo1.png" width="20" height="20" onmouseover="this.src='__IMG__/weibo.png'" onmouseout="this.src='__IMG__/weibo1.png'"/>
+                                    </a>
+                                </span>
+                                <span>
+                                    <a  id="wxf" href="" style="text-decoration: none">
+                                        <img src="__IMG__/weixin1.png" width="20" height="20"/>
+                                    </a>
+                                </span>
+                                <span>
+                                    <a id="fq" href="" style="text-decoration: none">
+                                        <img src="__IMG__/qq1.png" width="20" height="20" onmouseover="this.src='__IMG__/qq.png'" onmouseout="this.src='__IMG__/qq1.png'"/>
+                                    </a>
+                                </span>
                             </div>
+                        {/if}
+                            <div class="col-md-4 text-center">
+                                <span style="cursor:pointer">
+                                    {if condition="($azan.status==1) "}
+                                        <img class="hao"  onclick="zan('1')" src="__IMG__/good1.png" width="20" height="20"/>
+                                    {else}
+                                        <img class="hao"  onclick="zan('1')" src="__IMG__/good.png" width="20" height="20"/>
+                                    {/if}
+                                    <small id="goodcount">{$azan.good}</small>
+                                </span>
+                                &nbsp;
+                                <span  style="cursor:pointer">
+                                    {if condition="($azan.status==0) "}
+                                        <img class="huai" onclick="zan('0')" src="__IMG__/bad1.png" width="20" height="20"/>
+                                    {else}
+                                        <img class="huai"  onclick="zan('0')" src="__IMG__/bad.png" width="20" height="20"/>
+                                    {/if}
+                                     <small id="badcount">{$azan.bad}</small>
+                                </span>
+                            </div>
+                        {if condition="($post.mswitch!=0) "}
+                            <div class="col-md-4 text-right">
+                                <span id="zfb">
+                                    <a href="#">
+                                        <img src="__IMG__/zhifubao.png" width="20" height="20" onmouseover="this.src='__IMG__/zhifubao1.png'" onmouseout="this.src='__IMG__/zhifubao.png'"/>
+                                    </a>
+                                </span>
+                            </div>
+                        {/if}
                         </div>
                     </div>
                 </div>
@@ -137,7 +133,6 @@
                 </div>
                 {/volist}
             </div>
-
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -171,14 +166,12 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-body">
                               <div class="form-horizontal" id="comment">
                             <div class="form-group">
-                                <label for="qq" class="col-md-1 control-label">QQ号码</label>
                                 <div class="col-md-2">
                                     <input {$Think.session.disable}  value="{$Think.session.userqq}" type="number" class="form-control input-sm" id="qq" placeholder="QQ号码" onblur="getqq()">
                                 </div>
@@ -186,7 +179,6 @@
                                 </label>
                             </div>
                             <div class="form-group">
-                                <label for="nick" class="col-sm-1 control-label">QQ昵称</label>
                                 <div class="col-md-2">
                                     <input value="{$Think.session.username}" type="text" class="form-control input-sm" id="nick" placeholder="QQ昵称" disabled>
                                     <input  value="{$Think.session.pic}" type="text" id="pic" hidden>
@@ -194,12 +186,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-offset-1 col-md-5">
+                                <div class="col-md-5">
                                     <textarea class="form-control" rows="3" id="ctext"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-offset-1 col-md-10">
+                                <div class="col-md-10">
                                     <button onclick="commit()" class="btn btn-default">评论</button>
                                 </div>
                             </div>
@@ -211,11 +203,10 @@
             </div>
             {else \}评论关闭
             {/if}
-
         </div>
-    </div>
+{/block}
 
-</div>
+{block name="scriptcontent"}
 <script src="__JS__/ua-parser.js"></script>
 <script>
     var parser = new UAParser();

@@ -17,6 +17,8 @@
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="__JS__/bootstrap.min.js"></script>
+    <script src="__JS__/justTools.js" xmlns="http://www.w3.org/1999/html"></script>
+    <link rel="stylesheet" href="__CSS__/just-tip.css">
     <style>
         body {
             padding-top: 70px;/*有顶部固定导航条时设置*/
@@ -27,6 +29,8 @@
             color: #96a0b1;
         }
     </style>
+    {block name="headcontent"}
+    {/block}
 </head>
 <body>
 
@@ -48,6 +52,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="http://{$_SERVER['HTTP_HOST']}/index/index/bbs">留言</a></li>
+                <li><a href="http://{$_SERVER['HTTP_HOST']}/index/index/timeline">时间轴</a></li>
                 <!--<li class="dropdown">-->
                     <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">点我 <span class="caret"></span></a>-->
                     <!--<ul class="dropdown-menu">-->
@@ -65,7 +70,100 @@
     </div>
 </nav>
 
-{block name="content"}
+<div class="container-fluid">
+    <div class="row">
+
+        {block name="leftcontent"}
+        {/block}
+
+        <!-- 右侧-->
+        <div class="col-md-4 hidden-sm hidden-xs">
+            <!-- 描述-->
+            <div class="row text-center" style="margin-right: 10%;margin-left: 5%;margin-top: 5%">
+                <p>
+                    <span id="pv">访问次数: {$pv.pv}</span>
+                </p>
+                <hr/>
+            </div>
+            <div class="row text-center" style="margin-right: 10%;margin-left: 5%;margin-top: 0%">
+                <div class="col-md-12">
+                    <p>
+                        <span>
+                            <a href="{$admin.weibo}" style="text-decoration: none">
+                                <img src="__IMG__/weibo1.png" width="35" height="35" onmouseover="this.src='__IMG__/weibo.png'" onmouseout="this.src='__IMG__/weibo1.png'"/>
+                            </a>
+                        </span>
+                        <span id="weixin">
+                            <a href="" style="text-decoration: none">
+                                <img src="__IMG__/weixin1.png" width="35" height="35"/>
+                            </a>
+                        </span>
+                        <span id="qqt">
+                            <a href="" style="text-decoration: none">
+                                <img src="__IMG__/qq1.png" width="35" height="35"/>
+                            </a>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="row " style="margin-right: 10%;margin-left: 5%;margin-top: 5%;border-radius:5px;border: 1px solid rgb(204, 204, 204);padding-top: 0px;padding-left: 20px;padding-right: 20px;padding-bottom: 10px">
+                <div class="page-header" style="margin-bottom: 10px;margin-top: 20px;padding-bottom: 0px">
+                    <h5><span class="glyphicon glyphicon-cloud"></span>  标签云</h5>
+                </div>
+                <div class="col-md-12 " style="padding-left: 0px">
+                    <div >
+                        <ul style="padding:0;margin:0;">
+                            {volist name="tag" id="t"}
+                            <li style="list-style: none; float: left; padding: 2px 2px 5px 2px"><a href="http://{$_SERVER['HTTP_HOST']}/index/index/taglist?tag={$t.tagname}"><button class="btn btn-default btn-xs">{$t.tagname} {$t.tagcount}</button></a></li>
+                            {/volist}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row " style="margin-right: 10%;margin-left: 5%;margin-top: 5%;border-radius:5px;border: 1px solid rgb(204, 204, 204);padding-top: 0px;padding-left: 20px;padding-right: 20px;padding-bottom: 10px">
+                <div class="page-header"  style="margin-bottom: 10px;margin-top: 20px;padding-bottom: 0px">
+                    <h5><span class="glyphicon glyphicon-signal"></span> 最近阅读</h5>
+                </div>
+                <div class="col-md-12" style="padding-left: 0px">
+                    {volist name="readcountlist" id="vo" }
+                    <div style="border-bottom: 1px dashed #ccc;margin-bottom: 5px;line-height: 28px;">
+                        <a href="http://{$_SERVER['HTTP_HOST']}/index/index/post?postid={$vo.id}" style="text-decoration: none;color: #1b1f23;">
+                            {$vo.title}
+                            <span class="label label-danger" style="float: right">{$vo.count}阅</span>
+                        </a>
+                    </div>
+                    {/volist}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $("#weixin").mouseover(function(event){
+        var _this = $(this);
+        _this.justToolsTip({
+            events:event,
+            animation:"moveInBottom",
+            //width:"300px",
+            contents:"<img width='100' height='100' src='/upload/weixin.png'/>",
+            gravity:'bottom'
+        });
+    })
+    $("#qqt").mouseover(function(event){
+        var _this = $(this);
+        _this.justToolsTip({
+            events:event,
+            animation:"moveInBottom",
+            //width:"300px",
+            contents:"<img width='100' height='100' src='/upload/qq.png'/>",
+            gravity:'bottom'
+        });
+    })
+</script>
+{block name="scriptcontent"}
 {/block}
 
 <footer class="footer navbar-fixed-bottom text-center"  style="background-color: #f8f8f8;padding-top: 10px;">

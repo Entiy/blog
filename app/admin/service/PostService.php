@@ -150,4 +150,9 @@ class PostService
         return $listpages;
     }
 
+    public static function getPostsByTimeLine(){
+        $list=Db::table("post")->where(["dflag"=>0])->group("datetime")->order("datetime","desc")->select();
+        return $list;
+    }
+
 }
